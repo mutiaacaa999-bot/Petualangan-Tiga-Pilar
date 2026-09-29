@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Tiga Pilar - Game & Jurnal Refleksi HOTS Kelas 5 SD</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Fredoka & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'safari-green': '#82A352',
+                        'safari-green-dark': '#5B7834',
+                        'safari-yellow': '#F39C12',
+                        'safari-yellow-light': '#FDF3D8',
+                        'safari-cream': '#FAF6EE',
+                        'safari-brown': '#7E5233',
+                        'safari-brown-dark': '#54351F',
+                        'safari-sky': '#E0F2FE'
+                    },
+                    fontFamily: {
+                        heading: ['Fredoka', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF6EE;
+            background-image: radial-gradient(#E2D9C8 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+        }
+        .font-heading {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+        /* Custom map dotted line path */
+        .map-path {
+            stroke-dasharray: 8;
+            animation: dash 30s linear infinite;
+        }
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -1000;
+            }
+        }
+        /* Card bounce animation */
+        .bounce-hover:hover {
+            transform: translateY(-4px);
+            transition: transform 0.2s ease;
+        }
+        /* Hide scrollbars for slick look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Print styles for Journal */
+        @media print {
+            body { background: white !important; }
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            .print-container { width: 100% !important; margin: 0 !important; padding: 0 !important; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between selection:bg-yellow-300 selection:text-amber-900">
+
+    <!-- Header / Branding Bar -->
+    <header class="bg-white/90 backdrop-blur border-b-4 border-amber-200 sticky top-0 z-50 shadow-sm no-print">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Logos Group -->
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center gap-2 bg-amber-50 px-3 py-1.5 rounded-2xl border border-amber-200">
+                    <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs shadow">
+                        <i class="fa-solid me-0.5">🎓</i>
+                    </div>
+                    <div class="text-xs">
+                        <p class="font-bold text-blue-900 leading-tight">PPG</p>
+                        <p class="text-[10px] text-blue-700 leading-none">Calon Guru</p>
+                    </div>
+                </div>
+                
+                <div class="hidden sm:flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1.5 rounded-xl border border-emerald-200">
+                    <span class="tracking-wide">KEMENDIKDASMEN</span>
+                </div>
+
+                <div class="flex items-center gap-1.5 bg-yellow-50 px-2.5 py-1.5 rounded-xl border border-yellow-200">
+                    <span class="text-xs font-extrabold text-amber-800 tracking-wider">RAMAH</span>
+                    <span class="text-[10px] bg-amber-600 text-white px-1.5 py-0.5 rounded font-semibold">UNUSA</span>
+                </div>
+            </div>
+
+            <!-- Player Tag (Hidden on Intro) -->
+            <div id="header-player-info" class="hidden items-center bg-safari-yellow-light border-2 border-amber-400 px-3 py-1 rounded-full text-xs font-bold text-amber-900 shadow-sm">
+                <i class="fa-solid fa-compass text-amber-600 mr-1.5"></i>
+                <span id="player-tag-name">Petualang</span> <span class="mx-1 text-amber-400">•</span> <span id="player-tag-class">Kelas 5</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- ================= 1. HALAMAN INTRO / BERANDA ================= -->
+        <section id="screen-intro" class="block">
+            <div class="bg-white rounded-3xl p-6 md:p-10 shadow-xl border-4 border-amber-300 relative overflow-hidden text-center">
+                
+                <!-- Decorative Elements -->
+                <div class="absolute -top-10 -left-10 w-32 h-32 bg-amber-100 rounded-full blur-xl pointer-events-none"></div>
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-emerald-100 rounded-full blur-xl pointer-events-none"></div>
+
+                <!-- Banner Header Graphic -->
+                <div class="relative z-10 max-w-2xl mx-auto">
+                    <div class="inline-flex items-center gap-2 bg-emerald-100 border border-emerald-300 text-emerald-800 px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4 animate-bounce">
+                        <i class="fa-solid fa-map-location-dot"></i> Game Edukasi Kewarganegaraan HOTS SD Kelas 5
+                    </div>
+
+                    <h1 class="text-4xl md:text-6xl font-extrabold font-heading text-amber-800 tracking-wide drop-shadow-sm mb-2">
+                        PETUALANGAN TIGA PILAR
+                    </h1>
+                    <p class="text-slate-600 font-semibold text-sm md:text-base mb-6">
+                        Misi Petualang Cilik: Memahami & Mempraktikkan <span class="text-amber-700 font-bold">Norma</span>, <span class="text-emerald-700 font-bold">Hak</span>, dan <span class="text-blue-700 font-bold">Kewajiban</span>
+                    </p>
+
+                    <!-- Mascot & Theme Illustration Box -->
+                    <div class="bg-gradient-to-b from-amber-50 to-emerald-50 p-6 rounded-2xl border-2 border-amber-200 mb-8 shadow-inner flex flex-col md:flex-row items-center justify-around gap-4">
+                        <div class="text-center md:text-left space-y-1 max-w-xs">
+                            <span class="text-3xl">🧭 🔍 📜</span>
+                            <h3 class="font-heading text-lg font-bold text-amber-900">Selamat Datang, Detektif Cilik!</h3>
+                            <p class="text-xs text-slate-600">Desa Harmoni sedang mengalami kekacauan karena norma dilupakan, hak dituntut tanpa kewajiban. Bantulah memulihkan 3 Pilar Keseimbangan!</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="bg-white p-3 rounded-xl border border-amber-200 shadow-sm text-center">
+                                <span class="text-2xl">👦🏽🎒</span>
+                                <p class="text-[11px] font-bold text-amber-800 mt-1">Petualang Aji</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-amber-200 shadow-sm text-center">
+                                <span class="text-2xl">👧🏻🗺️</span>
+                                <p class="text-[11px] font-bold text-amber-800 mt-1">Petualang Maya</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Form -->
+                    <form id="form-start" onsubmit="startGame(event)" class="max-w-md mx-auto space-y-4 bg-amber-50/60 p-6 rounded-2xl border border-amber-200">
+                        <div>
+                            <label for="input-name" class="block text-left text-xs font-bold text-amber-900 mb-1">Nama Lengkap Petualang:</label>
+                            <input type="text" id="input-name" required placeholder="Tuliskan namamu di sini..." class="w-full px-4 py-3 rounded-xl border-2 border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm font-semibold text-slate-800 bg-white shadow-sm">
+                        </div>
+
+                        <div>
+                            <label for="input-class" class="block text-left text-xs font-bold text-amber-900 mb-1">Kelas & Rombel:</label>
+                            <select id="input-class" class="w-full px-4 py-3 rounded-xl border-2 border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm font-semibold text-slate-800 bg-white shadow-sm">
+                                <option value="Kelas 5A">Kelas 5A</option>
+                                <option value="Kelas 5B">Kelas 5B</option>
+                                <option value="Kelas 5C">Kelas 5C</option>
+                                <option value="Kelas 5 SD">Kelas 5 (Umum)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-heading font-bold text-lg py-3.5 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all transform active:scale-95 flex items-center justify-center gap-2">
+                            <span>Mulai Petualangan</span>
+                            <i class="fa-solid fa-circle-play text-amber-200"></i>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 2. PETA JALUR PETUALANGAN ================= -->
+        <section id="screen-map" class="hidden">
+            <div class="bg-white rounded-3xl p-6 shadow-xl border-4 border-amber-300 relative overflow-hidden">
+                
+                <!-- Header Status Game -->
+                <div class="flex flex-col md:flex-row justify-between items-center pb-4 mb-4 border-b border-amber-100 gap-3">
+                    <div>
+                        <h2 class="text-2xl font-heading font-bold text-amber-900">Peta Misi Tiga Pilar</h2>
+                        <p class="text-xs text-slate-500">Selesaikan setiap Pilar secara berurutan untuk membuka Jurnal Refleksi HOTS!</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-200 text-center">
+                            <span class="text-[10px] uppercase font-extrabold text-emerald-600 block">Kemajuan Misi</span>
+                            <span id="map-progress-text" class="text-sm font-bold text-emerald-800">0 / 3 Pilar Selesai</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Roadmap Visual -->
+                <div class="relative bg-emerald-50/70 border-2 border-emerald-200 rounded-2xl p-6 min-h-[380px] flex items-center justify-center overflow-x-auto">
+                    
+                    <!-- SVG Path for Map Road -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 300" preserveAspectRatio="none">
+                        <path d="M 120 150 C 250 50, 350 250, 400 150 C 450 50, 550 250, 680 150" fill="transparent" stroke="#E2E8F0" stroke-width="24" stroke-linecap="round"/>
+                        <path class="map-path" d="M 120 150 C 250 50, 350 250, 400 150 C 450 50, 550 250, 680 150" fill="transparent" stroke="#F59E0B" stroke-width="6" stroke-dasharray="10 10"/>
+                    </svg>
+
+                    <!-- Interactive Nodes Container -->
+                    <div class="relative z-10 w-full max-w-3xl flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 my-8 px-4">
+
+                        <!-- PILAR 1 NODE -->
+                        <div id="node-pilar-1" class="flex flex-col items-center cursor-pointer group">
+                            <button onclick="openPilar(1)" class="w-20 h-20 rounded-full bg-amber-500 text-white border-4 border-white shadow-lg flex items-center justify-center text-3xl group-hover:scale-110 transition-transform relative">
+                                ⚖️
+                                <span class="absolute -top-1 -right-1 bg-amber-800 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border border-white">Pos 1</span>
+                            </button>
+                            <div class="mt-2 text-center bg-white px-3 py-1.5 rounded-xl border border-amber-200 shadow-sm">
+                                <h4 class="font-heading font-bold text-xs text-amber-900">Pilar 1: Norma</h4>
+                                <span id="status-pilar-1" class="text-[10px] font-semibold text-amber-600">Siap Diberdayakan</span>
+                            </div>
+                        </div>
+
+                        <!-- PILAR 2 NODE -->
+                        <div id="node-pilar-2" class="flex flex-col items-center cursor-not-allowed group opacity-60">
+                            <button id="btn-pilar-2" onclick="openPilar(2)" disabled class="w-20 h-20 rounded-full bg-slate-300 text-slate-500 border-4 border-white shadow flex items-center justify-center text-3xl transition-transform relative">
+                                🛡️
+                                <span class="absolute -top-1 -right-1 bg-slate-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border border-white">Pos 2</span>
+                            </button>
+                            <div class="mt-2 text-center bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-heading font-bold text-xs text-slate-700">Pilar 2: Hak Anak</h4>
+                                <span id="status-pilar-2" class="text-[10px] font-semibold text-slate-400">Terkunci 🔒</span>
+                            </div>
+                        </div>
+
+                        <!-- PILAR 3 NODE -->
+                        <div id="node-pilar-3" class="flex flex-col items-center cursor-not-allowed group opacity-60">
+                            <button id="btn-pilar-3" onclick="openPilar(3)" disabled class="w-20 h-20 rounded-full bg-slate-300 text-slate-500 border-4 border-white shadow flex items-center justify-center text-3xl transition-transform relative">
+                                🤝
+                                <span class="absolute -top-1 -right-1 bg-slate-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border border-white">Pos 3</span>
+                            </button>
+                            <div class="mt-2 text-center bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-heading font-bold text-xs text-slate-700">Pilar 3: Kewajiban</h4>
+                                <span id="status-pilar-3" class="text-[10px] font-semibold text-slate-400">Terkunci 🔒</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Action Button for Journal (Unlocked after 3 Pilars) -->
+                <div class="mt-6 text-center">
+                    <button id="btn-go-journal" onclick="goToJournal()" disabled class="bg-slate-200 text-slate-400 font-heading font-bold px-8 py-3.5 rounded-2xl shadow cursor-not-allowed transition-all text-sm md:text-base inline-flex items-center gap-2">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                        <span>Buka Jurnal Refleksi HOTS (Selesaikan Semua Pos)</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= 3. KUIS & STUDI KASUS PILAR ================= -->
+        <section id="screen-quiz" class="hidden">
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-amber-300">
+                
+                <!-- Quiz Header Nav -->
+                <div class="flex justify-between items-center pb-4 mb-4 border-b border-amber-100">
+                    <button onclick="backToMap()" class="text-xs font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-xl border border-amber-200 transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali ke Peta
+                    </button>
+                    <div class="text-right">
+                        <span id="quiz-pilar-title" class="text-xs uppercase font-extrabold text-amber-600 tracking-wider block">PILAR 1</span>
+                        <span id="quiz-case-counter" class="text-sm font-extrabold text-slate-700">Studi Kasus 1 dari 3</span>
+                    </div>
+                </div>
+
+                <!-- Main Quiz Card -->
+                <div id="quiz-card-content" class="space-y-6">
+                    <!-- Case Study Scenario Box -->
+                    <div class="bg-amber-50/80 border-2 border-amber-200 p-5 rounded-2xl">
+                        <div class="flex items-center gap-2 text-amber-800 font-heading font-bold text-sm mb-2">
+                            <span class="bg-amber-200 p-1.5 rounded-lg text-xs">📖 Analisis Studi Kasus</span>
+                            <span id="quiz-topic-badge" class="bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-md text-[11px] border border-amber-300">Norma Kesopanan & Hukum</span>
+                        </div>
+                        <h3 id="quiz-scenario-title" class="font-heading font-bold text-lg text-slate-800 mb-2">Dilema di Kantin Sekolah</h3>
+                        <p id="quiz-scenario-text" class="text-xs md:text-sm text-slate-700 leading-relaxed">
+                            Saat jam istirahat, Budi melihat Anto menyela antrean kantin dengan alasan sangat lapar. Beberapa anak lain merasa dirugikan tetapi tidak berani menegur. Budi bingung apakah harus diam saja, menegur langsung dengan keras, atau melaporkannya.
+                        </p>
+                    </div>
+
+                    <!-- Question Prompt -->
+                    <div>
+                        <p id="quiz-question-prompt" class="font-bold text-slate-800 text-sm md:text-base">
+                            Berdasarkan prinsip norma kesopanan dan keadilan sosial, tindakan analisis paling bijak yang sebaiknya dilakukan Budi adalah...
+                        </p>
+                    </div>
+
+                    <!-- Options Container -->
+                    <div id="quiz-options-container" class="space-y-3">
+                        <!-- Dynamic Options loaded via JS -->
+                    </div>
+
+                    <!-- Interactive Feedback Box -->
+                    <div id="quiz-feedback-box" class="hidden p-4 rounded-2xl border-2 transition-all">
+                        <div class="flex items-start gap-3">
+                            <span id="feedback-icon" class="text-2xl">💡</span>
+                            <div>
+                                <h4 id="feedback-title" class="font-heading font-bold text-sm mb-1">Penjelasan Analisis:</h4>
+                                <p id="feedback-text" class="text-xs md:text-sm text-slate-700 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Next Case / Finish Pilar Button -->
+                    <div class="flex justify-end pt-2">
+                        <button id="btn-next-case" onclick="nextCase()" disabled class="bg-slate-300 text-slate-500 font-heading font-bold px-6 py-3 rounded-xl shadow cursor-not-allowed transition flex items-center gap-2 text-sm">
+                            <span>Lanjut Kasus Berikutnya</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= 4. JURNAL REFLEKSI HOTS ================= -->
+        <section id="screen-journal" class="hidden">
+            <div class="bg-white rounded-3xl p-6 md:p-10 shadow-xl border-4 border-amber-300 relative">
+                
+                <div class="no-print flex justify-between items-center mb-6 pb-4 border-b border-amber-100">
+                    <div>
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">Puncak Petualangan</span>
+                        <h2 class="text-2xl md:text-3xl font-heading font-bold text-amber-900 mt-1">Jurnal Refleksi Petualang Cilik</h2>
+                    </div>
+                    <button onclick="backToMap()" class="text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-xl transition">
+                        <i class="fa-solid fa-map mr-1"></i> Lihat Peta
+                    </button>
+                </div>
+
+                <!-- Journal Printable Header Area -->
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 p-5 rounded-2xl mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-semibold text-slate-700">
+                        <div><span class="text-amber-800 font-bold">Nama Petualang:</span> <span id="journal-display-name" class="font-bold text-slate-900">-</span></div>
+                        <div><span class="text-amber-800 font-bold">Kelas:</span> <span id="journal-display-class" class="font-bold text-slate-900">-</span></div>
+                        <div><span class="text-amber-800 font-bold">Tanggal Refleksi:</span> <span id="journal-display-date" class="font-bold text-slate-900">-</span></div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="mb-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-2xl text-xs md:text-sm text-blue-900">
+                    <p class="font-bold mb-1">✍️ Panduan Refleksi Berpikir Tingkat Tinggi (HOTS):</p>
+                    <p>Jawablah pertanyaan refleksif di bawah ini dengan menganalisis pengalaman pribadi serta pemahaman yang telah kamu peroleh dari 3 pilar. Tuliskan jawaban secara mendalam, jujur, dan kritis!</p>
+                </div>
+
+                <!-- Reflection Questions Form -->
+                <form id="form-journal" onsubmit="submitJournal(event)" class="space-y-6">
+                    
+                    <!-- Question 1: Menganalisis Pengalaman Personal (Norma) -->
+                    <div class="bg-amber-50/50 p-5 rounded-2xl border border-amber-200">
+                        <label class="block font-heading font-bold text-slate-800 text-sm md:text-base mb-2">
+                            1. [Menganalisis] Pikirkan satu peristiwa di rumah atau sekolah saat kamu atau temanmu hampir melanggar norma (kesopanan, kesusilaan, atau hukum). Mengapa norma tersebut penting untuk dijaga, dan apa dampak negatifnya jika norma itu diabaikan?
+                        </label>
+                        <textarea id="ref-q1" required rows="3" placeholder="Contoh: Saat di kelas, ada teman yang menyela guru berbicara... Dampaknya jika dibiarkan..." class="w-full p-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none text-xs md:text-sm text-slate-800 bg-white"></textarea>
+                    </div>
+
+                    <!-- Question 2: Mengevaluasi Keseimbangan (Hak vs Kewajiban) -->
+                    <div class="bg-amber-50/50 p-5 rounded-2xl border border-amber-200">
+                        <label class="block font-heading font-bold text-slate-800 text-sm md:text-base mb-2">
+                            2. [Mengevaluasi] Mengapa seseorang TIDAK BOLEH hanya menuntut Haknya tanpa menjalankan Kewajibannya terlebih dahulu? Berikan contoh situasi nyata ketidakseimbangan hak dan kewajiban anak di kelas 5 SD!
+                        </label>
+                        <textarea id="ref-q2" required rows="3" placeholder="Contoh: Anak menuntut hak bermain fasilitas sekolah tetapi merusak meja dan kursi... Sebab jika kewajiban diabaikan..." class="w-full p-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none text-xs md:text-sm text-slate-800 bg-white"></textarea>
+                    </div>
+
+                    <!-- Question 3: Merumuskan Rencana Aksi Nyata (Solusi Inovatif) -->
+                    <div class="bg-amber-50/50 p-5 rounded-2xl border border-amber-200">
+                        <label class="block font-heading font-bold text-slate-800 text-sm md:text-base mb-2">
+                            3. [Mencipta / Solusi Nyata] Komitmen Aksi Nyata: Buatlah 3 langkah konkret yang akan KAMU LAKUKAN mulai besok untuk menjadi pelopor warga sekolah yang taat norma, menghargai hak orang lain, dan disiplin kewajiban!
+                        </label>
+                        <textarea id="ref-q3" required rows="3" placeholder="Langkah 1: ... &#10;Langkah 2: ... &#10;Langkah 3: ..." class="w-full p-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none text-xs md:text-sm text-slate-800 bg-white"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="no-print flex justify-end">
+                        <button type="submit" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-heading font-bold px-8 py-3.5 rounded-2xl shadow-lg hover:shadow-xl transition transform active:scale-95 flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Simpan & Tampilkan Rangkuman Refleksi</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Summary & Model Answers (Hidden until submit) -->
+                <div id="journal-summary-section" class="hidden mt-10 pt-8 border-t-2 border-dashed border-amber-300 space-y-6">
+                    
+                    <div class="bg-emerald-100 border border-emerald-300 p-4 rounded-2xl text-center">
+                        <span class="text-3xl">🎉</span>
+                        <h3 class="font-heading font-bold text-lg text-emerald-900 mt-1">Jurnal Refleksi Berhasil Disimpan!</h3>
+                        <p class="text-xs text-emerald-700">Di bawah ini adalah Rangkuman Jawabanmu bersandingan dengan Panduan Model Jawaban Analisis HOTS sebagai bahan penilaian bersama Guru.</p>
+                    </div>
+
+                    <!-- Comparison Rubric Table / Card -->
+                    <div class="space-y-6">
+                        
+                        <!-- Item 1 Comparison -->
+                        <div class="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+                            <div class="bg-amber-100 px-4 py-2 font-heading font-bold text-xs text-amber-900">
+                                Refleksi 1: Analisis Pelanggaran Norma & Dampak Sosial
+                            </div>
+                            <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm">
+                                <div class="bg-amber-50/60 p-3 rounded-xl border border-amber-200">
+                                    <span class="font-bold text-amber-900 block mb-1">✍️ Jawaban Siswa:</span>
+                                    <p id="summary-ans-1" class="text-slate-700 whitespace-pre-wrap font-medium"></p>
+                                </div>
+                                <div class="bg-blue-50/60 p-3 rounded-xl border border-blue-200">
+                                    <span class="font-bold text-blue-900 block mb-1">💡 Panduan Model Analisis Ideal (HOTS):</span>
+                                    <p class="text-slate-700 leading-relaxed">
+                                        Siswa mampu mengidentifikasi konflik norma (misal: memotong pembicaraan/menyela antrean) dan menjelaskan dampaknya secara sistemik: merusak ketertiban umum, menimbulkan ketidakadilan, serta menciptakan rasa ketidaknyamanan bersama.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 Comparison -->
+                        <div class="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+                            <div class="bg-amber-100 px-4 py-2 font-heading font-bold text-xs text-amber-900">
+                                Refleksi 2: Evaluasi Keseimbangan Hak dan Kewajiban
+                            </div>
+                            <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm">
+                                <div class="bg-amber-50/60 p-3 rounded-xl border border-amber-200">
+                                    <span class="font-bold text-amber-900 block mb-1">✍️ Jawaban Siswa:</span>
+                                    <p id="summary-ans-2" class="text-slate-700 whitespace-pre-wrap font-medium"></p>
+                                </div>
+                                <div class="bg-blue-50/60 p-3 rounded-xl border border-blue-200">
+                                    <span class="font-bold text-blue-900 block mb-1">💡 Panduan Model Analisis Ideal (HOTS):</span>
+                                    <p class="text-slate-700 leading-relaxed">
+                                        Hak dan Kewajiban bersifat saling melekat (resiprokal). Menuntut hak tanpa kewajiban merugikan hak orang lain. Contoh: Meminta hak lingkungan bersih tetapi membuang sampah sembarangan merenggut hak teman lain untuk menghirup udara segar.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 Comparison -->
+                        <div class="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+                            <div class="bg-amber-100 px-4 py-2 font-heading font-bold text-xs text-amber-900">
+                                Refleksi 3: Formulasi Komitmen Aksi Nyata
+                            </div>
+                            <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm">
+                                <div class="bg-amber-50/60 p-3 rounded-xl border border-amber-200">
+                                    <span class="font-bold text-amber-900 block mb-1">✍️ Jawaban Siswa:</span>
+                                    <p id="summary-ans-3" class="text-slate-700 whitespace-pre-wrap font-medium"></p>
+                                </div>
+                                <div class="bg-blue-50/60 p-3 rounded-xl border border-blue-200">
+                                    <span class="font-bold text-blue-900 block mb-1">💡 Panduan Model Analisis Ideal (HOTS):</span>
+                                    <p class="text-slate-700 leading-relaxed">
+                                        Rencana aksi harus terukur, realistis, dan berorientasi pada keteladanan harian (misal: mengantre dengan sabar, piket kelas tepat waktu, mengingatkan teman secara santun saat melanggar norma).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Print / Save Action Buttons -->
+                    <div class="no-print flex flex-wrap justify-center gap-4 pt-4">
+                        <button onclick="window.print()" class="bg-amber-600 hover:bg-amber-700 text-white font-heading font-bold px-6 py-3 rounded-2xl shadow flex items-center gap-2 text-sm transition">
+                            <i class="fa-solid fa-print"></i>
+                            <span>Cetak / Simpan PDF Jurnal Refleksi</span>
+                        </button>
+                        <button onclick="restartGame()" class="bg-slate-700 hover:bg-slate-800 text-white font-heading font-bold px-6 py-3 rounded-2xl shadow flex items-center gap-2 text-sm transition">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Main Ulang Petualangan</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-amber-900 text-amber-200 text-center py-4 text-xs no-print border-t-4 border-amber-700 mt-8">
+        <div class="max-w-5xl mx-auto px-4">
+            <p class="font-semibold">Media Pembelajaran Edukasi "Petualangan Tiga Pilar" — Pendidikan Pancasila Kelas 5 SD</p>
+            <p class="text-[10px] text-amber-400/80 mt-1">Dikembangkan dengan pendekatan HOTS & Kemitraan PPG Calon Guru • Kemendikdasmen • RAMAH UNUSA</p>
+        </div>
+    </footer>
+
+    <script>
+        // Web Audio API Sound Effects Helper
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSfx(type) {
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.1);
+                } else if (type === 'success') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.4);
+                } else if (type === 'complete') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+                    osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15); // A5
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.5);
+                }
+            } catch(e) {
+                // Audio context fallback silent
+            }
+        }
+
+        // State Management
+        let playerData = {
+            name: '',
+            classGroup: ''
+        };
+
+        let pilarProgress = {
+            pilar1: false,
+            pilar2: false,
+            pilar3: false
+        };
+
+        let currentPilar = 1;
+        let currentCaseIndex = 0;
+        let selectedOptionIndex = null;
+
+        // Data Bank Studi Kasus HOTS
+        const pilarData = {
+            1: {
+                title: "PILAR 1: NORMA DALAM MASYARAKAT",
+                badge: "Kesopanan, Agama, Kesusilaan & Hukum",
+                cases: [
+                    {
+                        scenarioTitle: "Studi Kasus 1: Sikap di Dunia Maya vs Dunia Nyata",
+                        scenarioText: "Roni menemukan unggahan foto temannya di grup WhatsApp kelas yang salah mengenakan seragam. Beberapa teman memberikan komentar ejekan yang membuat anak tersebut sedih. Roni tahu ada norma kesopanan dan norma hukum (UU ITE/Etika Digital).",
+                        questionPrompt: "Tindakan kritis apa yang paling tepat dilakukan Roni untuk menegakkan norma kesopanan dan menjaga keharmonisan kelas?",
+                        options: [
+                            { text: "A. Ikut tertawa di grup agar dianggap kompak, lalu meminta maaf secara pribadi nanti.", isCorrect: false, explanation: "Pilihan ini tidak konsisten menegakkan norma. Mengikuti ejekan tetap merupakan pelanggaran norma kesopanan dan empati sosial." },
+                            { text: "B. Mengajak teman-teman secara santun di grup untuk menghentikan ejekan, lalu secara pribadi menyemangati teman yang diejek.", isCorrect: true, explanation: "Sangat Tepat! Ini mencerminkan pemikiran HOTS (Analisis & Evaluasi). Roni tidak hanya menghentikan benturan norma kesopanan di grup publik tetapi juga memberikan dukungan psikologis tanpa memperkeruh suasana." },
+                            { text: "C. Merekam isi obrolan tersebut dan menyebarkannya ke kelas lain agar semua orang tahu siapa pelakunya.", isCorrect: false, explanation: "Tindakan ini justru memperluas pelanggaran norma kesopanan dan privacy di media sosial." }
+                        ]
+                    },
+                    {
+                        scenarioTitle: "Studi Kasus 2: Dilema Kejujuran saat Ujian",
+                        scenarioText: "Saat tes Pendidikan Pancasila, Sita melihat sahabat karibnya menyelipkan catatan kecil di bawah meja. Sita tahu sahabatnya sedang mengalami masalah keluarga sehingga tidak sempat belajar.",
+                        questionPrompt: "Bagaimana Sita menganalisis situasi ini agar norma kesusilaan (kejujuran) dan nilai persahabatan dapat disikapi dengan bijak?",
+                        options: [
+                            { text: "A. Membiarkannya saja karena menyayangi sahabat lebih penting daripada aturan tes sekolah.", isCorrect: false, explanation: "Membiarkan kecurangan melanggar norma kesusilaan dan merugikan prinsip keadilan bagi siswa lain." },
+                            { text: "B. Menegurnya secara langsung dengan suara keras di depan kelas saat tes berlangsung agar kapok.", isCorrect: false, explanation: "Tindakan ini kurang bijak karena mempermalukan orang lain dan mengganggu jalannya tes kelas." },
+                            { text: "C. Mengingatkan sahabatnya secara halus setelah tes selesai bahwa kejujuran adalah nilai utama, serta menawarkan bantuan belajar bersama untuk tes berikutnya.", isCorrect: true, explanation: "Luar biasa! Analisis solusi ini menyeimbangkan penegakan norma kesusilaan (kejujuran) dengan kepedulian empati sahabat." }
+                        ]
+                    },
+                    {
+                        scenarioTitle: "Studi Kasus 3: Musyawarah Warga Sekolah",
+                        scenarioText: "Dalam pemilihan ketua kelas, calon terpilih bukan teman dekat kelompok Dito. Kelompok Dito berniat tidak mau mematuhi aturan piket yang dibuat oleh ketua kelas baru tersebut.",
+                        questionPrompt: "Mengapa tindakan kelompok Dito bertentangan dengan norma hukum/kesepakatan bersama di sekolah?",
+                        options: [
+                            { text: "A. Karena hasil musyawarah bersama merupakan kesepakatan norma yang mengikat seluruh warga kelas tanpa memandang suka atau tidak suka.", isCorrect: true, explanation: "Benar Sekali! Keputusan musyawarah/pemilihan yang sah menghasilkan aturan norma bersama yang wajib ditaati demi ketertiban bersama." },
+                            { text: "B. Karena ketua kelas memiliki kekuasaan mutlak untuk menghukum siapa saja yang tidak patuh.", isCorrect: false, explanation: "Kurang tepat. Norma dipatuhi bukan karena takut pada kekuasaan, melainkan demi kesepakatan dan keadilan bersama." },
+                            { text: "C. Karena piket kelas hanya tugas formalitas yang boleh diabaikan jika tidak cocok dengan pemimpinnya.", isCorrect: false, explanation: "Ini pemikiran keliru yang merusak norma kedisiplinan dan kebersamaan." }
+                        ]
+                    }
+                ]
+            },
+            2: {
+                title: "PILAR 2: HAK ANAK & WARGA SEKOALAH",
+                badge: "Perlindungan, Edukasi & Partisipasi",
+                cases: [
+                    {
+                        scenarioTitle: "Studi Kasus 1: Hak Berpendapat di Kelas",
+                        scenarioText: "Saat diskusi kelompok, pendapat Doni berbeda dari mayoritas anggota kelompoknya. Anggota lain langsung memotong pembicaraan Doni dan melarangnya berbicara lagi.",
+                        questionPrompt: "Analisis mana yang paling tepat mengenai pelanggaran Hak Anak dalam kasus Doni?",
+                        options: [
+                            { text: "A. Doni tidak melanggar apa-apa, tetapi dia memang harus mengalah demi suara terbanyak.", isCorrect: false, explanation: "Demokrasi bukan berarti membungkam suara minoritas. Setiap anak berhak menyampaikan pendapatnya." },
+                            { text: "B. Hak Doni untuk berpartisipasi dan menyampaikan pendapat secara merdeka telah dilanggar oleh kelompoknya.", isCorrect: true, explanation: "Tepat Sekali! Salah satu hak dasar anak (Konvensi Hak Anak) adalah hak didengar pendapatnya dalam suasana yang aman dan ramah." },
+                            { text: "C. Kelompok Doni berhak melarang Doni karena pendapat Doni menyulitkan tugas.", isCorrect: false, explanation: "Setiap pendapat wajib dihargai dan didiskusikan secara sehat sebelum diambil keputusan." }
+                        ]
+                    },
+                    {
+                        scenarioTitle: "Studi Kasus 2: Fasilitas Sanitasi & Kesehatan Sekolah",
+                        scenarioText: "Keran air di toilet sekolah rusak dan kotor sehingga banyak siswa tidak nyaman. Pengurus OSIS ingin mengusulkan perbaikan kepada pihak sekolah.",
+                        questionPrompt: "Mengapa pengusulan perbaikan fasilitas ini berkaitan langsung dengan pemenuhan Hak Anak?",
+                        options: [
+                            { text: "A. Keran air bersih adalah hak atas lingkungan belajar yang sehat dan layak bagi tumbuh kembang siswa.", isCorrect: true, explanation: "Benar! Memperoleh lingkungan belajar yang sehat, bersih, dan aman adalah hak mendasar anak di sekolah." },
+                            { text: "B. Karena sekolah harus terlihat mewah di mata pengunjung luar.", isCorrect: false, explanation: "Alasan ini keliru. Pemenuhan hak berfokus pada kesejahteraan siswa, bukan penampilan luar semata." },
+                            { text: "C. Karena siswa sudah membayar iuran sekolah jadi boleh menuntut apa saja secara bebas.", isCorrect: false, explanation: "Pemenuhan hak berlandaskan pada kebutuhan kesehatan dasar dan aturan hukum, bukan sebatas transaksi uang." }
+                        ]
+                    },
+                    {
+                        scenarioTitle: "Studi Kasus 3: Keseimbangan Hak Bermain & Belajar",
+                        scenarioText: "Tono sangat menyukai permainan sepak bola. Namun jam belajar di kelas sedang berlangsung dan guru memberikan penugasan kelompok.",
+                        questionPrompt: "Bagaimana Tono seharusnya mengevaluasi situasi ini secara dewasa?",
+                        options: [
+                            { text: "A. Meminta izin keluar kelas untuk main bola karena bermain adalah hak anak yang tak boleh dilarang.", isCorrect: false, explanation: "Pemenuhan hak bermain harus disesuaikan dengan waktu dan tempat yang tepat tanpa mengabaikan kewajiban belajar." },
+                            { text: "B. Memahami bahwa hak bermain dapat dinikmati saat jam istirahat/olahraga, sedangkan saat jam pelajaran adalah waktunya pemenuhan hak belajar secara fokus.", isCorrect: true, explanation: "Hebat! Ini analisis evaluatif yang matang: memahami ruang dan waktu dalam pemenuhan hak anak." },
+                            { text: "C. Bermain bola di dalam kelas secara sembunyi-sembunyi agar kedua hak terpenuhi.", isCorrect: false, explanation: "Tindakan ini mengganggu hak belajar teman lain dan melanggar aturan keselamatan." }
+                        ]
+                    }
+                ]
+            },
+            3: {
+                title: "PILAR 3: KEWAJIBAN DI MANA-MANA",
+                badge: "Tanggung Jawab Rumah, Sekolah & Masyarakat",
+                cases: [
+                    {
+                        scenarioTitle: "Studi Kasus 1: Tanggung Jawab Lingkungan",
+                        scenarioText: "Setiap sore, kerja bakti membersihkan selokan desa dilaksanakan. Beberapa remaja memilih nongkrong di warung dekat lokasi kerja bakti tanpa ikut membantu.",
+                        questionPrompt: "Jika dikaji dari konsep Kewajiban Warga Masyarakat, dampak dari perilaku meremehkan kewajiban tersebut adalah...",
+                        options: [
+                            { text: "A. Tidak berdampak apa-apa karena sudah ada orang lain yang mengerjakan.", isCorrect: false, explanation: "Setiap warga memiliki andil. Beban kerja bakti menjadi tidak adil jika sebagian orang lepas tangan." },
+                            { text: "B. Terjadinya ketimpangan sosial, rasa iri, serta potensi bencana banjir karena kewajiban menjaga lingkungan adalah tanggung jawab kolektif.", isCorrect: true, explanation: "Sangat Tepat! Mengevaluasi dampak mengabaikan kewajiban menunjukkan pemahaman bahwa kewajiban sosial berdampak langsung pada kesejahteraan bersama." },
+                            { text: "C. Warung menjadi rame sehingga menguntungkan ekonomi warga.", isCorrect: false, explanation: "Alasan ini mengabaikan pokok permasalahan kewajiban lingkungan dan kepedulian sosial." }
+                        ]
+                    },
+                    {
+                        scenarioTitle: "Studi Kasus 2: Kewajiban Mematuhi Aturan Lalu Lintas",
+                        scenarioText: "Rian diajak ayahnya naik motor ke toko terdekat tanpa helm dengan alasan 'jaraknya dekat dan tidak ada polisi'.",
+                        questionPrompt: "Sikap kritis apa yang sebaiknya Rian sampaikan kepada Ayah dengan cara yang sopan?",
+                        options: [
+                            { text: "A. Meminta ayah tetap memakai helm demi keselamatan diri sendiri dan mematuhi aturan hukum lalu lintas, bukan hanya karena takut polisi.", isCorrect: true, explanation: "Luar biasa! Melakukan kewajiban mematuhi aturan lalu lintas bertujuan melindungi jiwa, bukan sekadar menghindari sanksi aparat." },
+                            { text: "B. Diam saja karena ayah lebih dewasa dan pasti tahu yang terbaik.", isCorrect: false, explanation: "Anak juga bisa mengingatkan kebaikan secara sopan demi keselamatan bersama." },
+                            { text: "C. Menolak ikut dan marah-marah kepada ayah di depan umum.", isCorrect: false, explanation: "Menyampaikan kebaikan harus tetap menjunjung norma kesopanan kepada orang tua." }
+                        ]
+                    },
+                    {
+                        scenarioTitle: "Studi Kasus 3: Kaitan Hak dan Kewajiban",
+                        scenarioText: "Santi menuntut agar kamarnya selalu bersih dan rapi (Hak kenyamanan), tetapi ia selalu malas merapikan tempat tidur dan membuang sampah makanan di kamar (Kewajiban).",
+                        questionPrompt: "Kesimpulan HOTS apa yang bisa ditarik dari hubungan Hak dan Kewajiban Santi?",
+                        options: [
+                            { text: "A. Hak Santi untuk mendapat kamar bersih otomatis gugur jika ia tidak menjalankan kewajiban merawat kamarnya sendiri.", isCorrect: true, explanation: "Tepat! Hak dan Kewajiban bagaikan dua sisi mata uang. Hak atas kenyamanan baru tercipta jika kewajiban menjaga kebersihan dilaksanakan." },
+                            { text: "B. Ibu Santi wajib merapikan kamar Santi karena itu hak anak untuk dilayani.", isCorrect: false, explanation: "Keliru. Anak kelas 5 SD sudah harus melatih kemandirian dan kewajiban personal." },
+                            { text: "C. Santi boleh menuntut kamar bersih tanpa perlu repot membersihkannya.", isCorrect: false, explanation: "Ini merupakan contoh ketidakseimbangan hak dan kewajiban." }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // UI View Controller
+        function showScreen(screenId) {
+            document.getElementById('screen-intro').classList.add('hidden');
+            document.getElementById('screen-map').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-journal').classList.add('hidden');
+
+            document.getElementById(screenId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Start Game Handler
+        function startGame(e) {
+            e.preventDefault();
+            playSfx('click');
+            
+            const name = document.getElementById('input-name').value.trim();
+            const classGroup = document.getElementById('input-class').value;
+
+            if(!name) return;
+
+            playerData.name = name;
+            playerData.classGroup = classGroup;
+
+            // Update Header Tag
+            document.getElementById('player-tag-name').innerText = name;
+            document.getElementById('player-tag-class').innerText = classGroup;
+            document.getElementById('header-player-info').classList.remove('hidden');
+            document.getElementById('header-player-info').classList.add('flex');
+
+            showScreen('screen-map');
+            updateMapUI();
+        }
+
+        // Map UI Updater
+        function updateMapUI() {
+            let completedCount = 0;
+            if (pilarProgress.pilar1) completedCount++;
+            if (pilarProgress.pilar2) completedCount++;
+            if (pilarProgress.pilar3) completedCount++;
+
+            document.getElementById('map-progress-text').innerText = `${completedCount} / 3 Pilar Selesai`;
+
+            // Pilar 2 Unlock
+            if (pilarProgress.pilar1) {
+                const node2 = document.getElementById('node-pilar-2');
+                const btn2 = document.getElementById('btn-pilar-2');
+                node2.classList.remove('opacity-60', 'cursor-not-allowed');
+                btn2.disabled = false;
+                btn2.classList.remove('bg-slate-300', 'text-slate-500');
+                btn2.classList.add('bg-emerald-500', 'text-white', 'hover:scale-110');
+                document.getElementById('status-pilar-2').innerText = "Siap Diberdayakan";
+                document.getElementById('status-pilar-2').classList.replace('text-slate-400', 'text-emerald-600');
+            }
+
+            // Pilar 3 Unlock
+            if (pilarProgress.pilar2) {
+                const node3 = document.getElementById('node-pilar-3');
+                const btn3 = document.getElementById('btn-pilar-3');
+                node3.classList.remove('opacity-60', 'cursor-not-allowed');
+                btn3.disabled = false;
+                btn3.classList.remove('bg-slate-300', 'text-slate-500');
+                btn3.classList.add('bg-blue-500', 'text-white', 'hover:scale-110');
+                document.getElementById('status-pilar-3').innerText = "Siap Diberdayakan";
+                document.getElementById('status-pilar-3').classList.replace('text-slate-400', 'text-blue-600');
+            }
+
+            // Pilar Completed States
+            if (pilarProgress.pilar1) {
+                document.getElementById('status-pilar-1').innerText = "Selesai ✅";
+            }
+            if (pilarProgress.pilar2) {
+                document.getElementById('status-pilar-2').innerText = "Selesai ✅";
+            }
+            if (pilarProgress.pilar3) {
+                document.getElementById('status-pilar-3').innerText = "Selesai ✅";
+            }
+
+            // Journal Button Unlock
+            if (completedCount === 3) {
+                const btnJournal = document.getElementById('btn-go-journal');
+                btnJournal.disabled = false;
+                btnJournal.classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
+                btnJournal.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-amber-600', 'text-white', 'hover:from-amber-600', 'hover:to-amber-700', 'animate-pulse');
+            }
+        }
+
+        // Open Quiz Pilar
+        function openPilar(pilarNum) {
+            playSfx('click');
+            currentPilar = pilarNum;
+            currentCaseIndex = 0;
+            loadCaseData();
+            showScreen('screen-quiz');
+        }
+
+        // Load Specific Case Data into Quiz Screen
+        function loadCaseData() {
+            const pilar = pilarData[currentPilar];
+            const caseItem = pilar.cases[currentCaseIndex];
+
+            document.getElementById('quiz-pilar-title').innerText = pilar.title;
+            document.getElementById('quiz-topic-badge').innerText = pilar.badge;
+            document.getElementById('quiz-case-counter').innerText = `Studi Kasus ${currentCaseIndex + 1} dari ${pilar.cases.length}`;
+
+            document.getElementById('quiz-scenario-title').innerText = caseItem.scenarioTitle;
+            document.getElementById('quiz-scenario-text').innerText = caseItem.scenarioText;
+            document.getElementById('quiz-question-prompt').innerText = caseItem.questionPrompt;
+
+            // Reset Feedback & Next Button
+            const feedbackBox = document.getElementById('quiz-feedback-box');
+            feedbackBox.classList.add('hidden');
+            
+            const btnNext = document.getElementById('btn-next-case');
+            btnNext.disabled = true;
+            btnNext.classList.remove('bg-amber-600', 'hover:bg-amber-700', 'text-white');
+            btnNext.classList.add('bg-slate-300', 'text-slate-500', 'cursor-not-allowed');
+
+            if (currentCaseIndex === pilar.cases.length - 1) {
+                btnNext.querySelector('span').innerText = "Selesaikan Pos Pilar Ini";
+            } else {
+                btnNext.querySelector('span').innerText = "Lanjut Kasus Berikutnya";
+            }
+
+            // Render Options
+            const container = document.getElementById('quiz-options-container');
+            container.innerHTML = '';
+
+            caseItem.options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-amber-400 bg-white transition-all text-xs md:text-sm font-semibold text-slate-700 shadow-sm flex justify-between items-center group";
+                optBtn.onclick = () => selectOption(idx);
+                optBtn.innerHTML = `
+                    <span class="pr-2">${opt.text}</span>
+                    <i class="fa-regular fa-circle text-slate-300 group-hover:text-amber-500 text-lg"></i>
+                `;
+                container.appendChild(optBtn);
+            });
+        }
+
+        // Select Quiz Option
+        function selectOption(index) {
+            playSfx('click');
+            selectedOptionIndex = index;
+            const caseItem = pilarData[currentPilar].cases[currentCaseIndex];
+            const opt = caseItem.options[index];
+
+            const container = document.getElementById('quiz-options-container');
+            const buttons = container.querySelectorAll('button');
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                const icon = btn.querySelector('i');
+                if (idx === index) {
+                    if (opt.isCorrect) {
+                        btn.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-xs md:text-sm shadow-sm flex justify-between items-center";
+                        icon.className = "fa-solid fa-circle-check text-emerald-600 text-xl";
+                        playSfx('success');
+                    } else {
+                        btn.className = "w-full text-left p-4 rounded-xl border-2 border-amber-500 bg-amber-50 text-amber-900 font-bold text-xs md:text-sm shadow-sm flex justify-between items-center";
+                        icon.className = "fa-solid fa-circle-info text-amber-600 text-xl";
+                    }
+                } else if (opt.isCorrect && caseItem.options[idx].isCorrect) {
+                    btn.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-400 bg-emerald-50/50 text-emerald-800 text-xs md:text-sm flex justify-between items-center opacity-80";
+                    icon.className = "fa-solid fa-circle-check text-emerald-500 text-lg";
+                } else {
+                    btn.className = "w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-slate-50 text-slate-400 text-xs md:text-sm flex justify-between items-center opacity-60";
+                    icon.className = "fa-regular fa-circle text-slate-300 text-lg";
+                }
+            });
+
+            // Show Feedback
+            const feedbackBox = document.getElementById('quiz-feedback-box');
+            const feedbackText = document.getElementById('feedback-text');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackIcon = document.getElementById('feedback-icon');
+
+            feedbackBox.classList.remove('hidden');
+            if (opt.isCorrect) {
+                feedbackBox.className = "p-4 rounded-2xl border-2 border-emerald-300 bg-emerald-50 text-emerald-900";
+                feedbackIcon.innerText = "🌟";
+                feedbackTitle.innerText = "Analisis Tepat!";
+            } else {
+                feedbackBox.className = "p-4 rounded-2xl border-2 border-amber-300 bg-amber-50 text-amber-900";
+                feedbackIcon.innerText = "💡";
+                feedbackTitle.innerText = "Umpan Balik Refleksif:";
+            }
+            feedbackText.innerText = opt.explanation;
+
+            // Enable Next Button
+            const btnNext = document.getElementById('btn-next-case');
+            btnNext.disabled = false;
+            btnNext.classList.remove('bg-slate-300', 'text-slate-500', 'cursor-not-allowed');
+            btnNext.classList.add('bg-amber-600', 'hover:bg-amber-700', 'text-white', 'shadow-md');
+        }
+
+        // Next Case or Finish Pilar
+        function nextCase() {
+            playSfx('click');
+            const pilar = pilarData[currentPilar];
+
+            if (currentCaseIndex < pilar.cases.length - 1) {
+                currentCaseIndex++;
+                loadCaseData();
+            } else {
+                // Finish Pilar
+                playSfx('complete');
+                if (currentPilar === 1) pilarProgress.pilar1 = true;
+                if (currentPilar === 2) pilarProgress.pilar2 = true;
+                if (currentPilar === 3) pilarProgress.pilar3 = true;
+
+                updateMapUI();
+                showScreen('screen-map');
+            }
+        }
+
+        function backToMap() {
+            playSfx('click');
+            showScreen('screen-map');
+        }
+
+        // Go to Journal Screen
+        function goToJournal() {
+            playSfx('click');
+            document.getElementById('journal-display-name').innerText = playerData.name;
+            document.getElementById('journal-display-class').innerText = playerData.classGroup;
+            document.getElementById('journal-display-date').innerText = new Date().toLocaleDateString('id-ID', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            showScreen('screen-journal');
+        }
+
+        // Submit Reflection Form
+        function submitJournal(e) {
+            e.preventDefault();
+            playSfx('success');
+
+            const q1 = document.getElementById('ref-q1').value;
+            const q2 = document.getElementById('ref-q2').value;
+            const q3 = document.getElementById('ref-q3').value;
+
+            document.getElementById('summary-ans-1').innerText = q1;
+            document.getElementById('summary-ans-2').innerText = q2;
+            document.getElementById('summary-ans-3').innerText = q3;
+
+            document.getElementById('journal-summary-section').classList.remove('hidden');
+
+            // Scroll smoothly to summary
+            document.getElementById('journal-summary-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Restart Game
+        function restartGame() {
+            playSfx('click');
+            pilarProgress = { pilar1: false, pilar2: false, pilar3: false };
+            document.getElementById('form-journal').reset();
+            document.getElementById('journal-summary-section').classList.add('hidden');
+            showScreen('screen-intro');
+        }
+    </script>
+</body>
+</html>
